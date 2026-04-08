@@ -44,6 +44,10 @@ export default function RecruiterAssistant() {
       const { embedding } = await embedRes.json();
 
       // 2. Search Supabase
+      if (!supabase) {
+        throw new Error("Supabase client not initialized. Check your environment variables.");
+      }
+
       const { data: documents, error: supabaseError } = await supabase.rpc("match_documents", {
         query_embedding: embedding,
         match_threshold: 0.3,
