@@ -14,8 +14,8 @@ const SUGGESTED_QUESTIONS = [
   "Summarize his BigQuery and Airflow experience.",
 ];
 
-// Internal API route
-const embedApiBase = "/api/embed";
+// Suggestions
+const SUGGESTED_QUESTIONS = [
 
 export default function RecruiterAssistant() {
   const [question, setQuestion] = useState("");
@@ -33,29 +33,15 @@ export default function RecruiterAssistant() {
     setAnswer("");
 
     try {
-      // 1. Get embedding from backend
-      const embedRes = await fetch(embedApiBase, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: finalQuestion }),
-      });
-
-      if (!embedRes.ok) {
-        let errorMsg = "Failed to generate search vector.";
-        try {
-          const errorData = await embedRes.json();
-          errorMsg = errorData.error || errorMsg;
-          console.error("Server Error Detail:", errorData);
-        } catch {
-          const textError = await embedRes.text();
-          console.error("Raw Server Error:", textError);
-          if (textError.includes("FUNCTION_INVOCATION_TIMEOUT")) {
-            errorMsg = "Request timed out (Hugging Face is waking up). Please try again in 10 seconds.";
-          }
-        }
-        throw new Error(errorMsg);
-      }
-      const { embedding } = await embedRes.json();
+      // 1. Generate Embedding locally in the browser
+      const { pipeline, env } = await import('@xenova/transformers');
+      
+      // Ensure we use a browser-friendly cache or CDN
+      env.allowLocalModels = false;
+      
+      const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+      const output = await extractor(finalQuestion, { pooling: 'mean', normalize: true });
+      const embedding = Array.from(output.data);
 
       // 2. Search Supabase
       if (!supabase) {
