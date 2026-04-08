@@ -1,28 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pipeline, env } from "@xenova/transformers";
+import { HfInference } from "@huggingface/inference";
 
 export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
 
-// Configuration for Vercel's read-only filesystem
-env.allowLocalModels = false;
-env.cacheDir = "/tmp/transformers-cache";
-
-const MODEL_ID = "Xenova/all-MiniLM-L6-v2";
-
-// Singleton to load the pipeline once
-class EmbeddingPipeline {
-  static instance: any = null;
-
-  static async getInstance() {
-    if (this.instance === null) {
-      console.log("Loading embedding model...");
-      this.instance = await pipeline("feature-extraction", MODEL_ID);
-      console.log("Model loaded successfully.");
-    }
-    return this.instance;
-  }
-}
+const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
+const MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2";
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,23 +14,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
-    // Load the model and tokenizer
-    const extractor = await EmbeddingPipeline.getInstance();
+    if (!process.env.HUGGINGFACE_API_KEY) {
+      return NextResponse.json({ error: "Hugging Face API Key is missing" }, { status: 500 });
+    }
 
-    // Generate embedding
-    // 'pooling: mean' and 'normalize: true' match the Python SentenceTransformer behavior
-    const output = await extractor(text, { pooling: "mean", normalize: true });
+    // Generate embedding using the official SDK
+    const output = await hf.featureExtraction({
+      model: MODEL_ID,
+      inputs: text,
+    });
 
-    // Extract the raw array from the Tensor
-    const embedding = Array.from(output.data);
+    // Handle potential nested array from SDK
+    const embedding = Array.isArray(output[0]) ? output[0] : output;
 
     return NextResponse.json({ embedding });
   } catch (error: any) {
-    console.error("Embedding Error (Local):", error);
+    console.error("Hugging Face API Error:", error);
     return NextResponse.json({ 
       error: error.message,
-      stack: error.stack,
-      detail: "Check Vercel logs for more info"
+      detail: "Hugging Face Cloud API failed. Check your API key and quota."
     }, { status: 500 });
   }
 }
