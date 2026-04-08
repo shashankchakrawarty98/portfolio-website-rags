@@ -38,7 +38,20 @@ export default function RecruiterAssistant() {
       
       const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
       const output = await extractor(finalQuestion, { pooling: 'mean', normalize: true });
-      const embedding = Array.from(output.data);
+      
+      // Extract the embedding array from the Tensor output
+      // The output can be a Tensor with .data, a nested array, or a flat array
+      let embedding: number[];
+      if (output?.data) {
+        embedding = Array.from(output.data as Iterable<number>);
+      } else if (Array.isArray(output)) {
+        embedding = Array.isArray(output[0]) ? output[0] : output;
+      } else {
+        // Try to convert the output object to an array
+        embedding = Array.from(output as Iterable<number>);
+      }
+      
+      console.log("Embedding generated, length:", embedding.length);
 
       // 2. Search Supabase
       if (!supabase) {
