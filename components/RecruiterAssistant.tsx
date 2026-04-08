@@ -30,28 +30,21 @@ export default function RecruiterAssistant() {
     setAnswer("");
 
     try {
-      // 1. Generate Embedding locally in the browser
-      const { pipeline, env } = await import('@xenova/transformers');
-      
-      // Ensure we use a browser-friendly cache or CDN
-      env.allowLocalModels = false;
-      
-      const extractor = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-      const output = await extractor(finalQuestion, { pooling: 'mean', normalize: true });
-      
-      // Extract the embedding array from the Tensor output
-      // The output can be a Tensor with .data, a nested array, or a flat array
-      let embedding: number[];
-      if (output?.data) {
-        embedding = Array.from(output.data as Iterable<number>);
-      } else if (Array.isArray(output)) {
-        embedding = Array.isArray(output[0]) ? output[0] : output;
-      } else {
-        // Try to convert the output object to an array
-        embedding = Array.from(output as Iterable<number>);
+      // 1. Generate Embedding via server-side API route
+      const embedRes = await fetch("/api/embed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: finalQuestion }),
+      });
+
+      if (!embedRes.ok) {
+        const errBody = await embedRes.json().catch(() => ({ error: "Unknown server error" }));
+        console.error("Embed API error:", errBody);
+        throw new Error(errBody.error || "Failed to generate search vector.");
       }
-      
-      console.log("Embedding generated, length:", embedding.length);
+
+      const { embedding } = await embedRes.json();
+      console.log("Embedding generated, length:", embedding?.length);
 
       // 2. Search Supabase
       if (!supabase) {
