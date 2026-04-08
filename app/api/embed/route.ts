@@ -3,19 +3,21 @@ import { HfInference } from "@huggingface/inference";
 
 export const dynamic = "force-dynamic";
 
-const hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
-const MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2";
-
 export async function POST(req: NextRequest) {
+  const apiKey = process.env.HUGGINGFACE_API_KEY;
+  
+  if (!apiKey) {
+    return NextResponse.json({ error: "Hugging Face API Key is missing" }, { status: 500 });
+  }
+
+  const hf = new HfInference(apiKey);
+  const MODEL_ID = "sentence-transformers/all-MiniLM-L6-v2";
+
   try {
     const { text } = await req.json();
 
     if (!text) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
-    }
-
-    if (!process.env.HUGGINGFACE_API_KEY) {
-      return NextResponse.json({ error: "Hugging Face API Key is missing" }, { status: 500 });
     }
 
     // Generate embedding using the official SDK
