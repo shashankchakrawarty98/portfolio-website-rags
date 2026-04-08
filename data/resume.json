@@ -1,0 +1,123 @@
+{
+  "basics": {
+    "name": "Shashank Chakrawarty",
+    "title": "Data Engineering Architect | ETL Specialist | Apache Airflow, Databricks | Spark, Trino, SQL | Redshift, BigQuery, Synapse | Delta Tables, Delta Lake | Azure, AWS, GCP | Docker | ADF Specialist",
+    "intro": "I am a Data Engineering and Cloud Analytics Specialist with over 4 years of experience in designing and optimizing scalable data pipelines, cloud-native architectures, and real-time analytics platforms. My expertise spans across various domains including marketing, SEO, CRM, and enterprise data ecosystems.",
+    "profileSummary": [
+      "Passionate about leveraging technology to drive data-driven decision-making and enhance business outcomes.",
+      "Strong proficiency in tools such as Azure Databricks, BigQuery, and Apache Spark, enabling the delivery of high-performance data solutions.",
+      "Proven track record of improving processing efficiency, reducing costs, and ensuring data governance and compliance.",
+      "Recognized by stakeholders for the ability to translate complex technical solutions into clear business outcomes, leading to improved ROI and customer engagement."
+    ],
+    "location": "Mumbai, Maharashtra, India / London Area, UK",
+    "email": "shashank.chakrawarty@gmail.com",
+    "phone": "7358729767",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/cshashank/"
+    }
+  },
+  "achievements": [
+    {
+      "metric": "20% cost savings",
+      "context": "Achieved 20% cost savings while accelerating query performance by 35% through advanced data optimization."
+    },
+    {
+      "metric": "40% less effort",
+      "context": "Eliminated 40% of manual effort, reduced customer churn by 40%, and improved campaign effectiveness by 50%."
+    },
+    {
+      "metric": "95% fewer risks",
+      "context": "Elevated data governance standards, improving data integrity by 20% and cutting GDPR violations by 95%."
+    },
+    {
+      "metric": "50% faster config",
+      "context": "Accelerated data acquisition by 50% through end-to-end automation."
+    },
+    {
+      "metric": "70% fewer errors",
+      "context": "Reduced data errors by 70% and increased processing efficiency by 40%."
+    }
+  ],
+  "experience": [
+    {
+      "company": "Forbes Advisor",
+      "role": "Data Engineer",
+      "dates": "June 2024 - Present (1 year 10 months)",
+      "location": "London Area, United Kingdom",
+      "description": "In my current role at Forbes Advisor, I have engineered a scalable SEO data pipeline that has significantly improved data ingestion efficiency by 40% and enhanced SEO analytics accuracy by 25%. I have also optimized BigQuery performance, which has reduced query execution time by 30%, enabling near real-time analytics. Additionally, I implemented real-time Slack alerts that improved team response time by 20% and enhanced Google Analytics stream and batch processing, reducing data processing duration by 35%.",
+      "bullets": [
+        "Engineered a scalable SEO data pipeline, improving data ingestion efficiency by 40% and SEO analytics accuracy by 25%.",
+        "Optimized BigQuery performance, reducing query execution time by 30% to enable near real-time analytics.",
+        "Implemented real-time Slack alerts, improving team response time by 20%.",
+        "Enhanced Google Analytics stream and batch processing, reducing data processing duration by 35%."
+      ]
+    },
+    {
+      "company": "The Modern Data Company",
+      "role": "Senior Analytics Engineer",
+      "dates": "January 2022 - June 2024 (2 years 6 months)",
+      "location": "Hyderabad",
+      "description": "At The Modern Data Company, I integrated multi-platform enterprise data, which delivered a 70% ROI and improved processing efficiency by 30% through infrastructure migration. I led the API-CRM integration that reduced manual data entry by 40%, enabling revenue growth. My efforts in optimizing Spark performance and strengthening data security resulted in a 35% improvement in efficiency and a 35% reduction in compliance incidents. I also implemented data governance frameworks that increased customer engagement and retention by 30%. Also served as Analytics Engineer, leading deployment of sophisticated data obfuscation solutions in Azure SQL Database and Redshift.",
+      "bullets": [
+        "Integrated multi-platform enterprise data, delivering 70% ROI and improving processing efficiency by 30% through infrastructure migration.",
+        "Led API–CRM integration, reducing manual data entry by 40% and enabling revenue growth.",
+        "Optimized Spark performance and strengthened data security, improving efficiency by 35% and reducing compliance incidents by 35%.",
+        "Implemented data governance frameworks, increasing customer engagement and retention by 30%.",
+        "Executed detailed data governance protocols, utilizing Azure SQL Database and Redshift, resulting in a 30% spike in customer engagement and retention."
+      ]
+    },
+    {
+      "company": "RTBAnalytica",
+      "role": "Data Engineer",
+      "dates": "July 2021 - January 2022 (7 months)",
+      "location": "Remote",
+      "description": "During my tenure at RTB Analytica, I automated multi-source data pipelines, including Facebook Graph API, Klaviyo, and Google, which cut processing time by 40%. I drove cross-functional data consolidation that reduced end-to-end processing time by 25%. Additionally, I built enterprise-grade data quality monitoring systems that reduced data errors by 40%.",
+      "bullets": [
+        "Automated multi-source data pipelines (Facebook Graph API, Klaviyo, Google), cutting processing time by 40%.",
+        "Drove cross-functional data consolidation, reducing end-to-end processing time by 25%.",
+        "Built enterprise-grade data quality monitoring, reducing data errors by 40%."
+      ]
+    }
+  ],
+  "skills": {
+    "technical": [
+      { "category": "Artificial Intelligence", "items": ["GenAI", "RAGs", "Prompt Engineering"] },
+      { "category": "Top Skills", "items": ["Fivetran ETL Tool", "Data Build Tool (DBT)", "Snowflake"] },
+      { "category": "Programming & Query Languages", "items": ["Python", "SQL", "PySpark", "R programming"] },
+      { "category": "Big Data & Distributed Processing", "items": ["Apache Spark", "Databricks", "Kafka"] },
+      { "category": "Data Orchestration", "items": ["Apache Airflow", "dbt", "Cloud Composer"] },
+      { "category": "Cloud Platforms & Services", "items": ["Microsoft Azure", "GCP", "AWS", "Docker", "ADF"] },
+      { "category": "Data Warehousing & Lakes", "items": ["BigQuery", "Redshift", "Synapse", "Trino", "Delta Lake", "Delta Tables"] }
+    ]
+  },
+  "education": [
+    {
+      "institution": "School of Data Science and Forecasting | DAVV University (NAAC Grade: A+)",
+      "degree": "Master of Business Administration - MBA, Business analytics",
+      "dates": "June 2020 - March 2022"
+    },
+    {
+      "institution": "SRM Institute of Science and Technology (SRMIST)",
+      "degree": "BTech - Bachelor of Technology, Computer Science",
+      "dates": "2016 - 2020"
+    }
+  ],
+  "extra": {
+    "certifications": [
+      "[India] dbt Workshop",
+      "The Data Scientist’s Toolbox",
+      "Academy Accreditation - Databricks Fundamentals",
+      "R programming",
+      "Python Basic"
+    ],
+    "publications": [
+      "Protocode"
+    ],
+    "languages": [
+      "Hindi (Native or Bilingual)",
+      "Telugu (Native or Bilingual)",
+      "English (Full Professional)",
+      "Sanskrit (Full Professional)"
+    ]
+  }
+}
