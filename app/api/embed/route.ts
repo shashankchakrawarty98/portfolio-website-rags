@@ -23,6 +23,8 @@ export async function POST(req: NextRequest) {
       model: MODEL_ID,
       inputs: text,
     });
+    
+    console.log("Hugging Face API Success");
 
     // Handle potential nested array from SDK
     const embedding = Array.isArray(output[0]) ? output[0] : output;

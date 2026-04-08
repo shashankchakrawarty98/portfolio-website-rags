@@ -41,9 +41,19 @@ export default function RecruiterAssistant() {
       });
 
       if (!embedRes.ok) {
-        const errorData = await embedRes.json();
-        console.error("Embedding Route Error Detail:", errorData);
-        throw new Error(errorData.error || "Failed to generate search vector.");
+        let errorMsg = "Failed to generate search vector.";
+        try {
+          const errorData = await embedRes.json();
+          errorMsg = errorData.error || errorMsg;
+          console.error("Server Error Detail:", errorData);
+        } catch {
+          const textError = await embedRes.text();
+          console.error("Raw Server Error:", textError);
+          if (textError.includes("FUNCTION_INVOCATION_TIMEOUT")) {
+            errorMsg = "Request timed out (Hugging Face is waking up). Please try again in 10 seconds.";
+          }
+        }
+        throw new Error(errorMsg);
       }
       const { embedding } = await embedRes.json();
 
