@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 import { pipeline } from "@xenova/transformers";
 
 const MODEL_ID = "Xenova/all-MiniLM-L6-v2";

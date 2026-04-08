@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 import { Groq } from 'groq-sdk';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 export async function POST(req: NextRequest) {
+  const apiKey = process.env.GROQ_API_KEY;
+  if (!apiKey) {
+    console.error("GROQ_API_KEY is missing");
+    return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+  }
+
+  const groq = new Groq({ apiKey });
+
   try {
     const { prompt } = await req.json();
 
