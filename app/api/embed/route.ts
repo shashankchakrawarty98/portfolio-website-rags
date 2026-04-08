@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { pipeline, env } from "@xenova/transformers";
+
 export const dynamic = "force-dynamic";
-import { pipeline } from "@xenova/transformers";
+export const runtime = "nodejs";
+
+// Configuration for Vercel's read-only filesystem
+env.allowLocalModels = false;
+env.cacheDir = "/tmp/transformers-cache";
 
 const MODEL_ID = "Xenova/all-MiniLM-L6-v2";
 
@@ -10,7 +16,9 @@ class EmbeddingPipeline {
 
   static async getInstance() {
     if (this.instance === null) {
+      console.log("Loading embedding model...");
       this.instance = await pipeline("feature-extraction", MODEL_ID);
+      console.log("Model loaded successfully.");
     }
     return this.instance;
   }
