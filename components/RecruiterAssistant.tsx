@@ -14,9 +14,6 @@ const SUGGESTED_QUESTIONS = [
   "Summarize his BigQuery and Airflow experience.",
 ];
 
-// Suggestions
-const SUGGESTED_QUESTIONS = [
-
 export default function RecruiterAssistant() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
