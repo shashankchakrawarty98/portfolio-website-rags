@@ -40,7 +40,11 @@ export default function RecruiterAssistant() {
         body: JSON.stringify({ text: finalQuestion }),
       });
 
-      if (!embedRes.ok) throw new Error("Failed to generate search vector.");
+      if (!embedRes.ok) {
+        const errorData = await embedRes.json();
+        console.error("Embedding Route Error Detail:", errorData);
+        throw new Error(errorData.error || "Failed to generate search vector.");
+      }
       const { embedding } = await embedRes.json();
 
       // 2. Search Supabase

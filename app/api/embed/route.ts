@@ -45,6 +45,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ embedding });
   } catch (error: any) {
     console.error("Embedding Error (Local):", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message,
+      stack: error.stack,
+      detail: "Check Vercel logs for more info"
+    }, { status: 500 });
   }
 }
