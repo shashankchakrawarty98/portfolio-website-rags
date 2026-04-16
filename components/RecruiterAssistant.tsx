@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Bot, Loader2, Search, ShieldCheck } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 
 const SUGGESTED_QUESTIONS = [
   "What kind of data engineer is Shashank?",
@@ -46,18 +45,24 @@ export default function RecruiterAssistant() {
       const { embedding } = await embedRes.json();
       console.log("Embedding generated, length:", embedding?.length);
 
-      // 2. Search Supabase
-      if (!supabase) {
-        throw new Error("Supabase client not initialized. Check your environment variables.");
-      }
-
-      const { data: documents, error: supabaseError } = await supabase.rpc("match_documents", {
-        query_embedding: embedding,
-        match_threshold: 0.3,
-        match_count: 5,
+      // 2. Search documents via in-memory vector search
+      const searchRes = await fetch("/api/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query_embedding: embedding,
+          match_threshold: 0.3,
+          match_count: 5,
+        }),
       });
 
-      if (supabaseError) throw new Error(supabaseError.message);
+      if (!searchRes.ok) {
+        const errBody = await searchRes.json().catch(() => ({ error: "Search failed" }));
+        throw new Error(errBody.error || "Failed to search documents.");
+      }
+
+      const documents = await searchRes.json();
+
       if (!documents || documents.length === 0) {
         setAnswer("I do not have enough evidence in the current portfolio knowledge to answer that confidently.");
         return;
